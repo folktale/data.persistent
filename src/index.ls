@@ -25,10 +25,11 @@
 
 # Algebraic instances for ClojureScript's functional data structures (Mori)
 
-module.exports =
+module.exports = do
   List      : require './list'
   Vector    : require './vector'
   HashMap   : require './hash-map'
   Set       : require './set'
   SortedSet : require './sorted-set'
   Range     : require './range'
+<<< require './operations'

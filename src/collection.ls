@@ -31,8 +31,8 @@ class Collection
 
   _is-mori-collection: true
   _unwrap: (a) ->
-    | a._is-mori-collection => a.value
-    | otherwise             => a
+    if a._is-mori-collection => a.value
+    else                     => a
 
   # ### Constructors
   _new: (_) -> ...
@@ -40,7 +40,7 @@ class Collection
   into: (a) -> @_new <| mori.into @empty!value, a
 
   # ### Semigroup
-  concat: (b) -> @_new <| mori.into @value, b.value
+  concat: (b) -> @_new <| mori.concat @value, b.value
 
   # ### Monoid
   empty: -> @_new <| mori.empty @value
