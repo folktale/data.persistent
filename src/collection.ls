@@ -1,4 +1,4 @@
-# # data.persistent
+# # Base collection
 
 /** ^
  * Copyright (c) 2013 Quildreen Motta
@@ -23,12 +23,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-# Algebraic instances for ClojureScript's functional data structures (Mori)
+mori = require 'mori'
 
-module.exports =
-  List      : require './list'
-  Vector    : require './vector'
-  HashMap   : require './hash-map'
-  Set       : require './set'
-  SortedSet : require './sorted-set'
-  Range     : require './range'
+module.exports = \
+class Collection
+  ->
+
+  _is-mori-collection: true
+  _unwrap: (a) ->
+    | a._is-mori-collection => a.value
+    | otherwise             => a
+
+  # ### Constructors
+  _new: (_) -> ...
+  from: (_) -> ...
+  into: (a) -> @_new <| mori.into @empty!value, a
+
+  # ### Semigroup
+  concat: (b) -> @_new <| mori.into @value, b.value
+
+  # ### Monoid
+  empty: -> @_new <| mori.empty @value
+
+  # ### Functor
+  map: (f) -> @_new <| mori.map f, @value
+
+  # ### Applicative
+  of: (a) -> @_new <| mori.conj @empty!value, a
+
+  ap: (b) -> @chain (f) -> mori.map f, b.value
+
+  # ### Chain
+  chain: (f) -> @_new <| mori.mapcat f, @value
+
+  # ### Show
+  to-string: -> String @value
+
+  # ### Eq
+  is-equal: (b) -> mori.equals @value, b.value
+
+  # ### Hashable
+  hash: -> mori.hash @value  

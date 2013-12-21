@@ -1,4 +1,4 @@
-# # data.persistent
+# # Collection: Vector
 
 /** ^
  * Copyright (c) 2013 Quildreen Motta
@@ -23,12 +23,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-# Algebraic instances for ClojureScript's functional data structures (Mori)
+mori = require 'mori'
+Collection = require './collection'
 
-module.exports =
-  List      : require './list'
-  Vector    : require './vector'
-  HashMap   : require './hash-map'
-  Set       : require './set'
-  SortedSet : require './sorted-set'
-  Range     : require './range'
+class List extends Collection
+  (...xs) -> @value = mori.list ...xs
+  _new: (xs) -> new List <<< value: xs
+  from: (xs) -> @_new <| mori.into mori.list!, (@_unwrap xs)

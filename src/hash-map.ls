@@ -1,4 +1,4 @@
-# # data.persistent
+# # Collection: HashMap
 
 /** ^
  * Copyright (c) 2013 Quildreen Motta
@@ -23,12 +23,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-# Algebraic instances for ClojureScript's functional data structures (Mori)
+mori = require 'mori'
+Collection = require './collection'
 
-module.exports =
-  List      : require './list'
-  Vector    : require './vector'
-  HashMap   : require './hash-map'
-  Set       : require './set'
-  SortedSet : require './sorted-set'
-  Range     : require './range'
+class HashMap extends Collection
+  (...xs) -> @value = mori.hash_map ...xs
+  _new: (xs) -> new HashMap <<< value: xs
+  from: (xs) -> @_new <| mori.into mori.hash_map!, (@_unwrap xs)
