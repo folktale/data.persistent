@@ -107,7 +107,9 @@ export take = (n, xs) --> xs._new <| mori.take n, xs.value
 export take-while = (f, xs) --> xs._new <| mori.take_while f, xs.value
 export drop = (n, xs) --> xs._new <| mori.drop n, xs.value
 export drop-while = (f, xs) --> xs._new <| mori.drop_while f, xs.value
-export some = (f, xs) --> mori.some f, xs.value
+export some = (f, xs) --> do
+                          a = mori.some f, xs.value
+                          a? && a isnt false
 export every = (f, xs) --> mori.every f, xs.value
 export sort = (f, xs) --> new_list <| mori.sort f, xs.value
 export interpose = (x, xs) --> xs._new <| mori.interpose x, xs.value
