@@ -32,6 +32,10 @@ Set = require './set'
 Maybe = require 'monads.maybe'
 Nothing = Maybe.Nothing!
 
+new_list = (new List)._new
+new_map  = (new HashMap)._new
+new_set  = (new Set)._new
+
 unwrap = Collection._unwrap
  
 export is-list = (a) -> mori.is_list (unwrap a)
@@ -67,18 +71,18 @@ export update-in = (as, ks, f) --> as._new <| mori.update_in as.value, (unwrap k
 export count = (as) -> mori.count as.value
 export peek = (as) -> mori.peek as.value
 export pop = (as) -> as._new <| mori.pop as.value
-export zip-map = (as, bs) -->  HashMap._new <| mori.zipmap as.value, bs.value
+export zip-map = (as, bs) -->  new_map <| mori.zipmap as.value, bs.value
 export reverse = (as) -> as._new <| mori.reverse as.value
 
 export slice = (as, start, end) --> as._new <| mori.subvec as.value, start, end
 
-export keys = (as) -> List._new <| mori.keys as.value
-export values = (as) -> List._new <| mori.vals as.value
+export keys = (as) -> new_list <| mori.keys as.value
+export values = (as) -> new_list <| mori.vals as.value
 
-export disjunction = (as) -> Set._new <| mori.disj as.value
-export union = (as, bs) --> Set._new <| mori.union as.value, bs.value
-export intersection = (as, bs) --> Set._new <| mori.intersection as.value, bs.value
-export difference = (as, bs) --> Set._new <| mori.difference as.value, bs.value
+export disjunction = (as) -> new_set <| mori.disj as.value
+export union = (as, bs) --> new_set <| mori.union as.value, bs.value
+export intersection = (as, bs) --> new_set <| mori.intersection as.value, bs.value
+export difference = (as, bs) --> new_set <| mori.difference as.value, bs.value
 export is-subset = (as, bs) --> mori.is_subset as.value, bs.value
 export is-superset = (as, bs) --> mori.is_superset as.value, bs.value
 
@@ -86,10 +90,10 @@ export first = (as) ->
                     | is-empty as => Nothing
                     | otherwise   => Maybe.Just <| mori.first as.value
 export rest = (as) -> as._new <| mori.rest as.value
-export seq = (as) -> List._new <| mori.seq (unwrap as)
-export cons = (a, as) --> List._new <| mori.cons a, as.value
-export concat = (as, bs) --> List._new <| mori.concat as.value, bs.value
-export flatten = (as) -> List._new <| mori.flatten as.value
+export seq = (as) -> new_list <| mori.seq (unwrap as)
+export cons = (a, as) --> new_list <| mori.cons a, as.value
+export concat = (as, bs) --> new_list <| mori.concat as.value, bs.value
+export flatten = (as) -> new_list <| mori.flatten as.value
 export into-array = (as) -> mori.into_array (unwrap as)
 export each = (f, xs) --> mori.each xs.value, f
 export map = (f, xs) --> xs.map f
@@ -105,14 +109,14 @@ export drop = (n, xs) --> xs._new <| mori.drop n, xs.value
 export drop-while = (f, xs) --> xs._new <| mori.drop_while f, xs.value
 export some = (f, xs) --> mori.some f, xs.value
 export every = (f, xs) --> mori.every f, xs.value
-export sort = (f, xs) --> List._new <| mori.sort f, xs.value
-export interpose = (x, xs) --> xs._new <| mori.interpose x, xs
-export interleave = (xs, ys) --> xs._new <| mori.interleave xs, ys
-export iterate = (f, x) --> List._new <| mori.iterate f, x
-export repeat = (x) -> List._new <| mori.repeat x
-export replicate = (n, x) --> List._new <| mori.repeat n, x
+export sort = (f, xs) --> new_list <| mori.sort f, xs.value
+export interpose = (x, xs) --> xs._new <| mori.interpose x, xs.value
+export interleave = (xs, ys) --> xs._new <| mori.interleave xs.value, ys.value
+export iterate = (f, x) --> new_list <| mori.iterate f, x
+export repeat = (x) -> new_list <| mori.repeat x
+export replicate = (n, x) --> new_list <| mori.repeat n, x
 # Just take and stuff
-export repeatedly = (f) -> List._new <| mori.repeatedly f
-export partition = (n, step, pad, xs) --> List._new <| mori.partition n, step, pad, xs.value
-export partition-by = (f, xs) --> List._new <| mori.partition_by f, xs.value
-export group-by = (f, xs) --> HashMap._new <| mori.group-by f, xs
+export repeatedly = (f) -> new_list <| mori.repeatedly f
+export partition = (n, step, pad, xs) --> new_list <| mori.partition n, step, pad, xs.value
+export partition-by = (f, xs) --> new_list <| mori.partition_by f, xs.value
+export group-by = (f, xs) --> new_map <| mori.group-by f, xs

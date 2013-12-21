@@ -26,6 +26,7 @@
 mori = require 'mori'
 Collection = require './collection'
 
+module.exports = \
 class SortedSet extends Collection
   (...xs) -> @value = mori.sorted_set ...xs
   _new: (xs) -> new SortedSet <<< value: xs

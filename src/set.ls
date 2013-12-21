@@ -26,6 +26,7 @@
 mori = require 'mori'
 Collection = require './collection'
 
+module.exports = \
 class Set extends Collection
   (xs) -> @value = mori.set xs
   _new: (xs) -> new Set <<< value: xs

@@ -26,6 +26,7 @@
 mori = require 'mori'
 Collection = require './collection'
 
+module.exports = \
 class HashMap extends Collection
   (...xs) -> @value = mori.hash_map ...xs
   _new: (xs) -> new HashMap <<< value: xs

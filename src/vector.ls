@@ -26,6 +26,7 @@
 mori = require 'mori'
 Collection = require './collection'
 
+module.exports = \
 class Vector extends Collection
   (...xs) -> @value = mori.vector ...xs
   _new: (xs) -> new Vector <<< value: xs

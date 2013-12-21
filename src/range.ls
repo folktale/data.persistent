@@ -26,6 +26,7 @@
 mori = require 'mori'
 Collection = require './collection'
 
+module.exports = \
 class Range extends Collection
   (start, end, step) -> @value = mori.range start, end, step
   _new: (xs) -> new Range <<< value: xs
