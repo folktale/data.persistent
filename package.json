@@ -21,7 +21,8 @@
     "url": "https://github.com/folktale/data.persistent/issues"
   },
   "dependencies": {
-    "mori": "~0.2.4"
+    "mori": "~0.2.4",
+    "monads.maybe": "~0.3.0"
   },
   "devDependencies": {
     "browserify": "git://github.com/killdream/node-browserify",
