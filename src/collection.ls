@@ -55,7 +55,7 @@ class Collection
   ap: (b) -> @chain (f) -> mori.map f, b.value
 
   # ### Chain
-  chain: (f) -> @_new <| mori.mapcat f, @value
+  chain: (f) -> @_new <| mori.mapcat ((a) ~> @_unwrap (f a)), @value
 
   # ### Show
   to-string: -> String @value
