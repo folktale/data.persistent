@@ -49,6 +49,7 @@ class Collection
   map: (f) -> @_new <| mori.map f, @value
 
   # ### Applicative
+  @of = (a) -> new this().of a
   of: (a) -> @_new <| mori.conj @empty!value, a
 
   ap: (b) -> @chain (f) -> mori.map f, b.value
